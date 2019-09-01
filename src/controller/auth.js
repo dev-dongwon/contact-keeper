@@ -5,7 +5,7 @@ const { checkValidation } = require('../middlewares/data-validator');
 const User = require('../models/user');
 
 const controller = {
-  login: async (req, res) => {
+  authUser: async (req, res) => {
     // body data validation check
     checkValidation(req, res);
     const { email, password } = req.body;
@@ -38,6 +38,16 @@ const controller = {
       res.json({ token });
     } catch (error) {
       // eslint-disable-next-line no-console
+      console.error(error.message);
+      res.status(500).send('Server Error');
+    }
+  },
+
+  getUser: async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id).select('-password');
+      res.json(user);
+    } catch (error) {
       console.error(error.message);
       res.status(500).send('Server Error');
     }
