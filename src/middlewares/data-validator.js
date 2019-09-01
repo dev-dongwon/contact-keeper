@@ -11,6 +11,11 @@ const validator = {
   auth: [
     check('email', '이메일 형식이 맞지 않습니다').isEmail(),
     check('password', '비밀번호를 입력해주세요').exists()
+  ],
+  contact: [
+    check('name', '이름은 반드시 기입해야 합니다')
+      .not()
+      .isEmpty()
   ]
 };
 
