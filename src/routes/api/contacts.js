@@ -24,8 +24,6 @@ router.put('/:id', authUser, contactController.updateContact);
 // @route     DELETE api/contacts/:id
 // @desc      Delete contact
 // @access    Private
-router.delete('/:id', (req, res) => {
-  res.send('Delete contact');
-});
+router.delete('/:id', authUser, contactController.deleteContact);
 
 module.exports = router;
