@@ -1,12 +1,15 @@
 const express = require('express');
+const { validator } = require('../../middlewares/data-validator');
+const userController = require('../../controller/users');
 
 const router = express.Router();
 
-// @route     POST api/users
-// @desc      Regiter a user
-// @access    Public
-router.post('/', (req, res) => {
-  res.send('Register a user');
-});
+/*
+@route      GET api/user
+@desc       Register in user
+@access     public
+*/
+
+router.post('/', validator.user, userController.addUser);
 
 module.exports = router;
