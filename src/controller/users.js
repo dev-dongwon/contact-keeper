@@ -43,6 +43,7 @@ const controller = {
 
       res.json({ token });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error.message);
       res.status(500).send('Server Error');
     }
