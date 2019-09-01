@@ -1,20 +1,20 @@
 const express = require('express');
+const authUser = require('../../middlewares/auth-user');
+const { validator } = require('../../middlewares/data-validator');
+
+const contactController = require('../../controller/contact');
 
 const router = express.Router();
 
 // @route     GET api/contacts
 // @desc      Get all users contacts
 // @access    Private
-router.get('/', (req, res) => {
-  res.send('Get all contacts');
-});
+router.get('/', authUser, contactController.getContacts);
 
 // @route     POST api/contacts
 // @desc      Add new contact
 // @access    Private
-router.post('/', (req, res) => {
-  res.send('Add contact');
-});
+router.post('/', [authUser, validator.contact]);
 
 // @route     PUT api/contacts/:id
 // @desc      Update contact
