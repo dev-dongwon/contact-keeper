@@ -34,6 +34,41 @@ const controller = {
       console.error(error.message);
       res.status(500).send('Server Error');
     }
+  },
+
+  updateContact: async (req, res) => {
+    const {
+      name, email, phone, type
+    } = req.body;
+
+    const contactFields = {};
+
+    if (name) contactFields.name = name;
+    if (email) contactFields.email = email;
+    if (phone) contactFields.phone = phone;
+    if (type) contactFields.type = type;
+
+    try {
+      let contact = await Contact.findById(req.params.id);
+      if (!contact) {
+        return res.status(404).json({ msg: 'Contact Not Found' });
+      }
+
+      if (contact.user.toString() !== req.user.id) {
+        return res.status(401).json({ msg: 'Not Authorized' });
+      }
+
+      contact = await Contact.findByIdAndUpdate(
+        req.params.id,
+        { $set: contactFields },
+        { new: true }
+      );
+
+      res.json(contact);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send('Server Error');
+    }
   }
 };
 

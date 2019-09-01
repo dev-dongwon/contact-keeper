@@ -19,9 +19,7 @@ router.post('/', [authUser, validator.contact], contactController.addContact);
 // @route     PUT api/contacts/:id
 // @desc      Update contact
 // @access    Private
-router.put('/:id', (req, res) => {
-  res.send('Update contact');
-});
+router.put('/:id', authUser, contactController.updateContact);
 
 // @route     DELETE api/contacts/:id
 // @desc      Delete contact
