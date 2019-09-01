@@ -14,7 +14,7 @@ router.get('/', authUser, contactController.getContacts);
 // @route     POST api/contacts
 // @desc      Add new contact
 // @access    Private
-router.post('/', [authUser, validator.contact]);
+router.post('/', [authUser, validator.contact], contactController.addContact);
 
 // @route     PUT api/contacts/:id
 // @desc      Update contact
