@@ -3,6 +3,7 @@ require('dotenv').config();
 // import modules
 const express = require('express');
 const morgan = require('morgan');
+const dbConnector = require('./config/mongo-db');
 
 // import routers
 const apiRouter = require('./routes/api');
@@ -10,7 +11,7 @@ const apiRouter = require('./routes/api');
 const app = express();
 
 // Connect database
-// db();
+dbConnector();
 
 // middlewares
 app.use(morgan('dev'));
