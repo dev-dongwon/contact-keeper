@@ -1,10 +1,14 @@
 import React, { useState, useContext } from "react";
-import AlertContext from '../../context/alert/AlertContext';
+import AlertContext from "../../context/alert/AlertContext";
+import AuthContext from "../../context/auth/AuthContext";
 
 const Register = () => {
   const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
 
   const { setAlert } = alertContext;
+
+  const { register } = authContext;
 
   const [user, setUser] = useState({
     name: "",
@@ -19,12 +23,17 @@ const Register = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    if (name === '' || email === '' || password === '') {
-      setAlert('모든 입력란을 작성해주세요', 'danger');
+    if (name === "" || email === "" || password === "") {
+      setAlert("모든 입력란을 작성해주세요", "danger");
     } else if (password !== password2) {
-      setAlert('패스워드가 일치하지 않습니다', 'danger')
+      setAlert("패스워드가 일치하지 않습니다", "danger");
+    } else {
+      register({
+        name,
+        email,
+        password
+      });
     }
-    console.log("Register Submit");
   };
 
   return (
